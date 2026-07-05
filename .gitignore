@@ -1,0 +1,18 @@
+# Build artifacts / places do Roblox
+*.rbxl
+*.rbxlx
+*.rbxl.lock
+*.rbxlx.lock
+
+# Backups do Studio
+*.rbxl.bak
+*.rbxlx.bak
+
+# Ferramentas locais / caches de toolchain
+/.rokit/
+/bin/
+
+# Sujeira de SO
+.DS_Store
+Thumbs.db
+desktop.ini
