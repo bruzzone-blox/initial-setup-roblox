@@ -68,12 +68,20 @@ README e lembrar o usuário ao final:
 ├── README.md               # setup + como rodar o sync
 └── src/
     ├── server/
-    │   └── init.server.luau      # -> ServerScriptService
+    │   └── Main.server.luau      # -> ServerScriptService.Main (Script)
     ├── client/
-    │   └── init.client.luau      # -> StarterPlayerScripts
+    │   └── Main.client.luau      # -> StarterPlayerScripts.Main (LocalScript)
     └── shared/
-        └── Greeting.luau         # ModuleScript -> ReplicatedStorage
+        └── Greeting.luau         # ModuleScript -> ReplicatedStorage.Greeting
 ```
+
+> **Nota (Rojo):** os scripts de entrada usam nomes explícitos
+> (`Main.server.luau` / `Main.client.luau`), **não** `init.server.luau` /
+> `init.client.luau`. Um `init.*.luau` na raiz de uma pasta mapeada diretamente
+> para um serviço faz o Rojo reclassificar o próprio serviço em Script/LocalScript
+> (serviços não podem ser reclassificados), o que quebra o sync. Arquivos
+> nomeados viram Instances-filhas dentro do serviço, que é o comportamento
+> desejado.
 
 ## 7. Requisitos por arquivo
 
@@ -107,11 +115,14 @@ mapeamento. Qualquer erro aqui quebra o sync inteiro, então validar a sintaxe.
   pastas de ferramentas locais e sujeira de SO.
 
 ### 7.6 Scripts de validação (hello world)
-- `src/server/init.server.luau`: ao rodar, dá `print` confirmando que o servidor
+- `src/server/Main.server.luau`: ao rodar, dá `print` confirmando que o servidor
   subiu e consome o ModuleScript de `shared`.
 - `src/shared/Greeting.luau`: ModuleScript que exporta uma função simples
   (ex.: retorna uma saudação) — serve para provar o `require` cross-context.
-- `src/client/init.client.luau`: `print` mínimo confirmando execução no cliente.
+- `src/client/Main.client.luau`: `print` mínimo confirmando execução no cliente.
+
+> Ver a nota da seção 6 sobre por que os arquivos são `Main.*.luau` e não
+> `init.*.luau`.
 
 Nada além disso. O propósito é único: verificar que o pipeline funciona.
 
